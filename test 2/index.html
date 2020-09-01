@@ -10,7 +10,7 @@
             <form id="form" autocomplete="off">
                 <p>First Name: <input  id="fName" class="name" type="text" style="margin-left: 70px";></p>
                 <p>Last Name: <input  id="lName" class="name" type="text" style="margin-left: 71px";></p>
-                <p>Email Adress: <input id="email" type="text" style="margin-left: 58px ";></p>
+                <p>Email Adress: <input id="email" type="text" name="email" style="margin-left: 58px "; onkeydown="eValidate(email)"><span id="message" class="message"></span></p>
                 <label for="gender">Gender:</label>
                 <select  id="gender" name="gender" style="margin-left: 90px;">
                     <option class="gender">male</option>

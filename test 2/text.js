@@ -6,32 +6,56 @@ const email = document.getElementById("email").value;
 const gender = document.getElementById("gender").value;
 const table = document.getElementById("table").getElementsByTagName("tbody")[0];
 const submit = document.getElementById("submit");
+const message = document.getElementById("message");
 var check = document.getElementById("check");
+//email validation function
+ function eValidate() {
+   const form = document.getElementById("form");
+  const email = document.getElementById("email").value;
+  const message = document.getElementById("message");
+  var pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
 
-//onclick event on submit
-
+  if(email.match(pattern))
+  {
+    form.classList.add("valid");
+    form.classList.remove("invalid");
+    message.innerHTML = "Your email address is valid";
+    message.style.color = "green";
+  }
+  else{
+    form.classList.add("invalid");
+    form.classList.remove("valid");
+    message.innerHTML = "Pls enter a valid email address";
+    message.style.color = "red";
+  }
+  }
+ 
+// onSubmit func
 function submitData() {
-  if (submit.innerHTML == "submit") {
+   
+    if (submit.innerHTML == "submit") {
     const fName = document.getElementById("fName").value;
     const lName = document.getElementById("lName").value;
     const email = document.getElementById("email").value;
-
-    if (
-      fName == "" ||
-      lName == "" ||
-      (email == "" && submit.innerHTML == "submit")
+	  
+      if (
+        fName == "" ||
+        lName == "" ||
+        email == "" ||
+        (message.innerHTML == "Pls enter a valid email address" && submit.innerHTML == "submit")
+		
     ) {
-      alert("pls enter the field");
-      return false;
+      return true;
     } else {
       insertNewRow();
       clearInputs();
 
-      return true;
-    }
-  }
+      return false;
+   
+  }   
+} 
 }
-
+//onclick event on submit
 submit.onclick = function (e) {
   e.preventDefault();
   submitData();
@@ -67,13 +91,16 @@ function insertNewRow() {
   //cell3.innerHTML = null;
   cell4.innerHTML = `<button class="edit" onclick="editData(this)">Edit</button>`;
   cell5.innerHTML = `<button class="delete" onclick="onDelete(this)">delete</button>`;
-
+	
+	//check if he/she just came to the country within the last 14days
   if (check.checked) {
     cell3.innerHTML = "yes";
   } else {
     cell3.innerHTML = "no";
   }
+	
 }
+
 
 //clearFieldInputs
 
@@ -83,6 +110,7 @@ function clearInputs() {
   const email = (document.getElementById("email").value = "");
   const gender = (document.getElementById("gender").value = "male");
   var check = (document.getElementById("check").checked = "");
+  const message = (document.getElementById("message").innerHTML = "");
 }
 
 //var editData = document.getElementsByClassName("edit");
@@ -114,7 +142,8 @@ function editData(td) {
         document.getElementById("fName").value +
         " " +
         document.getElementById("lName").value;
-      const emailText = document.getElementById("email").value;
+     document.getElementById("email").value;
+	  const emailText = document.getElementById("email").value;
       const genderText = document.getElementById("gender").value;
 
       let checkedText = "";
